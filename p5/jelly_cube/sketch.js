@@ -1,7 +1,7 @@
 /*
 
 	Jelly Cube
-	Files: sketch.js; index.html; boing.wav;
+	Files: sketch.js; index.html; boing.wav; info.png;
 	By Marcus Williams
 
 */
@@ -21,7 +21,7 @@ function preload() {
 
 function setup() {
 	createCanvas(windowWidth, windowHeight, WEBGL);
-	timer = initTime = 30;									//	Initialize timer for 1 min.
+	timer = initTime = 30;									//	Initialize timer for 30 seconds.
 	size = numOfNotes/2;									//	Initialize the loop variable.
 	mode = 0;												//	Initialize color mode.
 	initJellyCube();
