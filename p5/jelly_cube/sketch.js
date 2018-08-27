@@ -11,17 +11,16 @@ var numOfNotes = 8;											//	Lenght of the matrix side (height, width, depth
 var timer, initTime;
 var size, mode;
 
-var mic, sound;
+var mic, sound, img;
 
 function preload() {
 	initAudioListener();	
 	initSound();
+	initImage();
 }
 
 function setup() {
-    //createCanvas(windowWidth, windowHeight, WEBGL);
-	var myCanvas = createCanvas(windowWidth, windowHeight, WEBGL);
-    myCanvas.parent("p5canvas");
+	createCanvas(windowWidth, windowHeight, WEBGL);
 	timer = initTime = 30;									//	Initialize timer for 1 min.
 	size = numOfNotes/2;									//	Initialize the loop variable.
 	mode = 0;												//	Initialize color mode.
@@ -31,6 +30,13 @@ function setup() {
 function draw() {
 	background(250);
 	ManageTimer();
+	
+	push(); 
+	translate(-width/3, -height/3, 0);
+	texture(img);
+	plane(200,200);
+	pop();
+	
 	if (mode > 8) mode = 0;									//	Reset mode if above cap
 	
 	rotateX(frameCount * 0.005);							//	Rotates the jellly cube
@@ -38,7 +44,7 @@ function draw() {
 	
 	var vol = mic.getLevel();								//	Get volume level of mic.
 
-	var newVol = map(vol, 0, 1, -size, size, true);			//	Map volume to array index 
+	var newVol = map(vol, 0, 1, -size, size, true);			// Map volume to array index 
 	if (newVol > -3) { 										//	Play sound when mic volume reaches minimum
 		sound.rate(random(0,1));							//	and cuts out at maximum. 
 		sound.play();
@@ -64,9 +70,14 @@ function initAudioListener() {
 	mic.start();
 }
 
-/*	Setup jelly cube initSound	*/
+/*	Setup jelly cube	*/
 function initSound() {
 	sound = loadSound("boing.wav");
+}
+
+/*	Setup info image	*/
+function initImage() {
+	img = loadImage("info.png");
 }
 
 /*	Initialize matirx of BeatBox objects	*/
